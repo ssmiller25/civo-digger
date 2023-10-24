@@ -14,4 +14,4 @@ After you have created the pipeline configuration file, you can commit it to you
 
 Once the pipeline has completed successfully, you can log in to your Civo account and verify that the Kubernetes cluster has been created.
 
-I hope this helps! Let me know if you have any other questions.
+Now that we have a new cluster setup, we can begin building out more production-level services in round 2 of our blog articles
