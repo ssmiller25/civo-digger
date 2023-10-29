@@ -9,7 +9,7 @@ terraform {
 }
 
 # Configure the Civo Provider
-# Assumes CIVO_TOKEN set in the pipeline
+# Make sure CIVO_TOKEN set in the pipeline
 provider "civo" {
   region = "LON1"
 }
