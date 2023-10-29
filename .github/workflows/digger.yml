@@ -12,10 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    # Based on https://github.com/diggerhq/digger/issues/395#issuecomment-1601257947
+    permissions: write-all
     steps:
       - name: digger run
-        uses: diggerhq/digger@v0.1.31
+        uses: diggerhq/digger@v0.2.0
         with:
           # All current locking mechanisms require large-cloud resources
           disable-locking: true
