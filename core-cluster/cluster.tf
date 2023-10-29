@@ -13,7 +13,7 @@ data "civo_size" "xsmall" {
 
 # Create a firewall
 resource "civo_firewall" "core-firewall" {
-    name = "core-firewall"
+    name = "core"
 
   ingress_rule {
     label      = "k8s"
@@ -26,7 +26,7 @@ resource "civo_firewall" "core-firewall" {
 
 # Create a cluster without specific cluster type by default is k3s
 resource "civo_kubernetes_cluster" "core-cluster" {
-    name = "my-cluster"
+    name = "core"
     firewall_id = civo_firewall.core-firewall.id
     pools {
         label = "front-end" // Optional
