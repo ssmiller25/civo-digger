@@ -12,9 +12,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Based on https://github.com/diggerhq/digger/issues/395#issuecomment-1601257947
     permissions:
       id-token: write
-      contents: read
+      contents: write
       issues: write
       pull-requests: write
     steps:
