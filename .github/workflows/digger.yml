@@ -12,7 +12,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    permissions:
+      id-token: write
+      contents: read
+      issues: write
+      pull-requests: write
     steps:
       - name: digger run
         uses: diggerhq/digger@v0.1.31
