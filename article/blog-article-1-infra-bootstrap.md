@@ -1,4 +1,4 @@
-Terraform is a great tool for automating infrastructure configuration.  
+Terraform is a great tool for automating infrastructure configuration.  As your configuration and environemnt grows larger, and additional team members come in to help manage 
 
 Digger.dev is an open-source tool that allows you to run all Terraform processes in the same CI infrastructure you already use. It reuses your CI infrastructure with jobs, logs, compute, orchestration, etc. so it is scalable and secure 1.
 
