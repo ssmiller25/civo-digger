@@ -4,9 +4,24 @@ Digger.dev is an open-source tool that allows you to run all Terraform processes
 
 To launch a Civo Kubernetes cluster using Digger.dev, you can follow these steps:
 
-First, you need to have a Civo account and the Civo CLI installed. You can sign up for a Civo account here and install the Civo CLI by following the instructions here.
+- In your Civo account, obtain an API token by going to [Settings -> Profile and clicking the Security tab](https://dashboard.civo.com/security)
 
-Next, you need to create a new project in Digger.dev and add your Civo API key as a secret. You can do this by following the instructions here.
+- Create a new Github Repository.  
+
+- In the new Github repository, go to Settings -> Secrets and Variables -> Actions.  Create a CIVO_TOKEN secret with teh API key above
+
+In the repository, create the following files (links provided with example code)
+
+- Create your Terraform configuration
+
+- `core-cluster/provider.tf`
+- `core-clutser/cluster.tf`
+
+- Sketch out the core digger configuraiton
+
+- `.github/workflows/digger.yml`: Main pipeline
+- `.digger.yml`: Digger confonfiguration itself
+
 
 Once you have created a new project, you can create a new pipeline by following the instructions here. In the pipeline configuration file, you can specify the Civo cluster configuration using the civo-kubernetes-cluster module. You can find more information about the [civo-kubernetes-cluster module here](https://www.civo.com/docs/kubernetes/create-a-cluster).
 
