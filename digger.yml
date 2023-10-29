@@ -1,0 +1,4 @@
+auto_merge: false
+projects:
+    - name: "core-cluster"
+      dir: core-cluster
