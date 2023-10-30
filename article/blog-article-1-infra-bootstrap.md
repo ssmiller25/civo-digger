@@ -8,19 +8,19 @@ To launch a Civo Kubernetes cluster using Digger.dev, you can follow these steps
 
 - Create a new Github Repository.  
 
-- In the new Github repository, go to Settings -> Secrets and Variables -> Actions.  Create a CIVO_TOKEN secret with teh API key above
+- In the new Github repository, go to Settings -> Secrets and Variables -> Actions.  Create a `CIVO_TOKEN` secret with the API key above
 
 In the repository, create the following files (links provided with example code)
 
 - Create your Terraform configuration
 
-- `core-cluster/provider.tf`
-- `core-clutser/cluster.tf`
+- [core-cluster/provider.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/provider.tf)
+- [core-clutser/cluster.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/cluster.tf)
 
 - Sketch out the core digger configuraiton
 
-- `.github/workflows/digger.yml`: Main pipeline
-- `.digger.yml`: Digger confonfiguration itself
+- [.github/workflows/digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/.github/workflows/digger.yml) Main pipeline
+- [.digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/digger.yml): Digger confonfiguration itself
 
 
 Once you have created a new project, you can create a new pipeline by following the instructions here. In the pipeline configuration file, you can specify the Civo cluster configuration using the civo-kubernetes-cluster module. You can find more information about the [civo-kubernetes-cluster module here](https://www.civo.com/docs/kubernetes/create-a-cluster).
