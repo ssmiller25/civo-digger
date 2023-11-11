@@ -1,32 +1,35 @@
-Terraform is a great tool for automating infrastructure configuration.  As your configuration and environemnt grows larger, and additional team members come in to help manage 
+# Infrastructure as Code Using Digger
 
-Digger.dev is an open-source tool that allows you to run all Terraform processes in the same CI infrastructure you already use. It reuses your CI infrastructure with jobs, logs, compute, orchestration, etc. so it is scalable and secure 1.
+Terraform is a great tool for automating infrastructure configuration.  As your configuration and environemnt grows larger, and additional team members come in to help manage infrastrucutre, a better model needs to be in place to help run your Terraform code in a collaborative method.  Many solutions exist in the both the open source ([Atlantis](https://www.runatlantis.io/), tf-controller) and commercial (Terraform Cloud, Env0, Spacelift). a solution that came to my attention recently was Digger. 
+
+[Digger](https://www.digger.dev/) is an open-source tool that allows you to run all Terraform processes in the same CI infrastructure you already use. It reuses your CI infrastructure with jobs, logs, compute, orchestration, etc. so you can benefit from your your existing software deployment methodology.
 
 To launch a Civo Kubernetes cluster using Digger.dev, you can follow these steps:
 
 - In your Civo account, obtain an API token by going to [Settings -> Profile and clicking the Security tab](https://dashboard.civo.com/security)
-
 - Create a new Github Repository.  
-
 - In the new Github repository, go to Settings -> Secrets and Variables -> Actions.  Create a `CIVO_TOKEN` secret with the API key above
+- In the New Repository, ensure you Github Actions, as well as grant the pipeline read and write permissions
+    ![Github Workfow Permissions](images/pr_permissions.png)
+- In the repository, create the following files (links provided with example code)
+    - [core-cluster/provider.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/provider.tf)
+    - [core-clutser/cluster.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/cluster.tf)
+- Sketch out the Github Actions pipeline configuration and core digger configuraiton:
+    - [.github/workflows/digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/.github/workflows/digger.yml) Main pipeline
+    - [.digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/digger.yml): Digger confonfiguration itself
+- Once everything has been committed to the `main` branch, you'll need to make a PR to actually test the pipeline.  Create a new branch, `initial-commit`.  Make a minor change to any of the terraform in the `core-cluster` directory.  Push up that branch, then create a new PR
+- In that PR, write a new comment to trigger a `terraform plan` to see the actions the terraform code will perform.
+    ![First PR](images/first_pr.png)
+- Review the output of the `terraform plan` output.  This will let you, and any peer reviewers, see what infrastructure changes will occur.
+    ![PR Terraform Plan](images/pr_terraform_plan.png)
+- If the plan looks good, then write a comment of `digger apply`.  
+    ![PR comment apply](images/pr_comment_on_apply.png)
+- On the PR, you will see the results of the terraform apply
+    ![PR apply complete](images/github_apply_complete.png)
+- Once the apply is complete, merge your PR into the main branch.
+- Once the pipeline has completed successfully, you can log in to your Civo account and verify that the Kubernetes cluster has been created.
+    ![Civo Completed Cluster](images/civo_completed_cluster.png)
 
-In the repository, create the following files (links provided with example code)
+Now we have completed our first cluster, provisioned completely from Digger!
 
-- Create your Terraform configuration
-
-- [core-cluster/provider.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/provider.tf)
-- [core-clutser/cluster.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/cluster.tf)
-
-- Sketch out the core digger configuraiton
-
-- [.github/workflows/digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/.github/workflows/digger.yml) Main pipeline
-- [.digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/digger.yml): Digger confonfiguration itself
-
-
-Once you have created a new project, you can create a new pipeline by following the instructions here. In the pipeline configuration file, you can specify the Civo cluster configuration using the civo-kubernetes-cluster module. You can find more information about the [civo-kubernetes-cluster module here](https://www.civo.com/docs/kubernetes/create-a-cluster).
-
-After you have created the pipeline configuration file, you can commit it to your repository and push it to your Git provider. Digger.dev will automatically detect the changes and start the pipeline.
-
-Once the pipeline has completed successfully, you can log in to your Civo account and verify that the Kubernetes cluster has been created.
-
-Now that we have a new cluster setup, we can begin building out more production-level services in round 2 of our blog articles
+This configuration will get you far - but we will explore building out better state and lock management in our next blog article on Digger.
