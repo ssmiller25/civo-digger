@@ -32,4 +32,4 @@ To launch a Civo Kubernetes cluster using Digger.dev, you can follow these steps
 
 Now we have completed our first cluster, provisioned completely from Digger!
 
-This configuration will get you far - but we will explore building out better state and lock management in our next blog article on Digger.
+This configuration will get you far - but we will explore hardening our pipeline with better state and lock management, but completely with Civo architecture!
