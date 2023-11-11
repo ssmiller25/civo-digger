@@ -1,6 +1,6 @@
 # Infrastructure as Code Using Digger
 
-Terraform is a great tool for automating infrastructure configuration.  As your configuration and environemnt grows larger, and additional team members come in to help manage infrastrucutre, a better model needs to be in place to help run your Terraform code in a collaborative method.  Many solutions exist in the both the open source ([Atlantis](https://www.runatlantis.io/), tf-controller) and commercial (Terraform Cloud, Env0, Spacelift). a solution that came to my attention recently was Digger. 
+Terraform is a great tool for automating infrastructure configuration.  As your configuration and environemnt grows larger, and additional team members come in to help manage infrastrucutre, a better model needs to be in place to help run your Terraform code in a collaborative method.  Many solutions exist in the both the open source ([Atlantis](https://www.runatlantis.io/), [tf-controller](https://github.com/weaveworks/tf-controller)) and commercial ([Terraform Cloud](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started/cloud-sign-up), [Env0](https://www.env0.com/), [Spacelift](https://spacelift.io/)). a solution that came to my attention recently was Digger. 
 
 [Digger](https://www.digger.dev/) is an open-source tool that allows you to run all Terraform processes in the same CI infrastructure you already use. It reuses your CI infrastructure with jobs, logs, compute, orchestration, etc. so you can benefit from your your existing software deployment methodology.
 
@@ -12,11 +12,11 @@ To launch a Civo Kubernetes cluster using Digger.dev, you can follow these steps
 - In the New Repository, ensure you Github Actions, as well as grant the pipeline read and write permissions
     ![Github Workfow Permissions](images/pr_permissions.png)
 - In the repository, create the following files (links provided with example code)
-    - [core-cluster/provider.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/provider.tf)
-    - [core-clutser/cluster.tf](https://github.com/ssmiller25/civo-digger/blob/main/core-cluster/cluster.tf)
+    - [core-cluster/provider.tf](https://github.com/ssmiller25/civo-digger/blob/1-infra-bootstrap/core-cluster/provider.tf)
+    - [core-clutser/cluster.tf](https://github.com/ssmiller25/civo-digger/blob/1-infra-bootstrap/core-cluster/cluster.tf)
 - Sketch out the Github Actions pipeline configuration and core digger configuraiton:
-    - [.github/workflows/digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/.github/workflows/digger.yml) Main pipeline
-    - [.digger.yml](https://github.com/ssmiller25/civo-digger/blob/main/digger.yml): Digger confonfiguration itself
+    - [.github/workflows/digger.yml](https://github.com/ssmiller25/civo-digger/blob/1-infra-bootstrap/.github/workflows/digger.yml) Main pipeline
+    - [.digger.yml](https://github.com/ssmiller25/civo-digger/blob/1-infra-bootstrap/digger.yml): Digger confonfiguration itself
 - Once everything has been committed to the `main` branch, you'll need to make a PR to actually test the pipeline.  Create a new branch, `initial-commit`.  Make a minor change to any of the terraform in the `core-cluster` directory.  Push up that branch, then create a new PR
 - In that PR, write a new comment to trigger a `terraform plan` to see the actions the terraform code will perform.
     ![First PR](images/first_pr.png)
