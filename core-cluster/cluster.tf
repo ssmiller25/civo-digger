@@ -26,7 +26,7 @@ resource "civo_firewall" "core-firewall" {
 
 # Create a cluster without specific cluster type by default is k3s
 resource "civo_kubernetes_cluster" "core-cluster" {
-  name        = "core"
+  name        = "core2"
   firewall_id = civo_firewall.core-firewall.id
   pools {
     label      = "front-end" // Optional
