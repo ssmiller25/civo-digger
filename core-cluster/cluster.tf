@@ -1,3 +1,4 @@
+# Update: 20240128
 # Query xsmall instance size
 data "civo_size" "xsmall" {
   filter {
