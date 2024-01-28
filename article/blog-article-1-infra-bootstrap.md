@@ -18,9 +18,9 @@ To launch a Civo Kubernetes cluster using Digger.dev, you can follow these steps
     - [.github/workflows/digger.yml](https://github.com/ssmiller25/civo-digger/blob/1-infra-bootstrap/.github/workflows/digger.yml) Main pipeline
     - [.digger.yml](https://github.com/ssmiller25/civo-digger/blob/1-infra-bootstrap/digger.yml): Digger confonfiguration itself
 - Once everything has been committed to the `main` branch, you'll need to make a PR to actually test the pipeline.  Create a new branch, `initial-commit`.  Make a minor change to any of the terraform in the `core-cluster` directory.  Push up that branch, then create a new PR
-- In that PR, write a new comment to trigger a `terraform plan` to see the actions the terraform code will perform.
+- In that PR, write a new comment of `digger plan` to see the actions the terraform code will perform.
     ![First PR](images/first_pr.png)
-- Review the output of the `terraform plan` output.  This will let you, and any peer reviewers, see what infrastructure changes will occur.
+- Review the output of the plan output.  This will let you, and any peer reviewers, see what infrastructure changes will occur.
     ![PR Terraform Plan](images/pr_terraform_plan.png)
 - If the plan looks good, then write a comment of `digger apply`.  
     ![PR comment apply](images/pr_comment_on_apply.png)
