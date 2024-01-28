@@ -6,20 +6,23 @@ on:
     types: [ closed, opened, synchronize, reopened ]
   issue_comment:
     types: [created]
-    if: contains(github.event.comment.body, 'digger')
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Based on https://github.com/diggerhq/digger/issues/395#issuecomment-1601257947
-    permissions: write-all
+    permissions:    
+      contents: write      # required to merge PRs
+      id-token: write      # required for workload-identity-federation
+      pull-requests: write # required to post PR comments
+      statuses: write      # required to validate combined PR status
     steps:
       - name: digger run
-        uses: diggerhq/digger@v0.2.0
+        uses: diggerhq/digger@latest
         with:
           # All current locking mechanisms require large-cloud resources
           disable-locking: true
+          no-backend: true
           # AWS Setup Below
           # setup-aws: true
           # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
