@@ -1,3 +1,4 @@
+# Update: 20240128
 # Query xsmall instance size
 data "civo_size" "xsmall" {
   filter {
@@ -14,7 +15,7 @@ data "civo_size" "xsmall" {
 # Create a firewall
 resource "civo_firewall" "core-firewall" {
   name = "core"
-
+  create_default_rules = false
   ingress_rule {
     label      = "k8s"
     protocol   = "tcp"
