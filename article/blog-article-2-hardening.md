@@ -17,7 +17,29 @@ Given that we have are initial workflwo already build out, we can use Digger its
 
 First, let's make sure we have Ingress and Cert Manager working.  Adjust the firewall to allow incoming 80 and 443 connections, and add cert-manager
 
-_cluster.tf adjustments_
+In Civo Firewall
+
+```hcl
+  ingress_rule {
+    label      = "k8s"
+    protocol   = "tcp"
+    port_range = "80"
+    cidr       = ["0.0.0.0/8"]
+    action     = "allow"
+  }
+  ingress_rule {
+    label      = "k8s"
+    protocol   = "tcp"
+    port_range = "6443"
+    cidr       = ["0.0.0.0/8"]
+    action     = "allow"
+```
+
+And in the cluster definition
+
+```hcl
+  applications = "cert-manager"
+```
 
 Now, let's get DNS setup.  We will leverage civo dns architecture to provision a domain for use with our cluster.  We will also provision a wildcard TLS cert that we can use across the applicatios in our cluster
 
