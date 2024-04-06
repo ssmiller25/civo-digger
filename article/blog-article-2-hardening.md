@@ -13,11 +13,11 @@ The Orchestrator Backend is a service that triggers Pipeline Runs.  Most CI pipe
 
 ## Prep Our Core Cluster
 
-Given that we have are initial workflwo already build out, we can use Digger itself to deploy the Digger orchestrator on Civo architecture!
+Given that we have are initial workflow already build out, we can use Digger itself to deploy the Digger orchestrator on Civo architecture!
 
 First, let's make sure we have Ingress and Cert Manager working.  Adjust the firewall to allow incoming 80 and 443 connections, and add cert-manager
 
-In Civo Firewall
+In Civo Firewall section of `cluster.tf`
 
 ```hcl
   ingress_rule {
@@ -30,7 +30,7 @@ In Civo Firewall
   ingress_rule {
     label      = "k8s"
     protocol   = "tcp"
-    port_range = "6443"
+    port_range = "443"
     cidr       = ["0.0.0.0/8"]
     action     = "allow"
 ```
@@ -43,19 +43,19 @@ And in the cluster definition
 
 Now, let's get DNS setup.  We will leverage civo dns architecture to provision a domain for use with our cluster.  We will also provision a wildcard TLS cert that we can use across the applicatios in our cluster
 
-_dns.tf which will provision dns_
-_ingress.tf Work, which will include setup of cert-mnaager_
+
 
 Use our terraform pipeline to deploy
 
 _screenshot of successful cluster deploy_
 
-Make sure DNS zone SOA records are setup to properly point to child domain.  Let's verify that cert-manager is appropratily configured
 
-_Check on cert manager_
+
 
 ## Deploy Digger in Terraform!
 
+_Check on cert manager_
+_ingress.tf Work, which will include setup of cert-mnaager_
 
 
 

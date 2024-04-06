@@ -33,7 +33,7 @@ resource "civo_firewall" "core-firewall" {
   ingress_rule {
     label      = "k8s"
     protocol   = "tcp"
-    port_range = "6443"
+    port_range = "443"
     cidr       = ["0.0.0.0/8"]
     action     = "allow"
   }
