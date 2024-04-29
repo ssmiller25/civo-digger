@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - clsuterissuer.yaml # WAIT...how do I patch .spec.acme.email FROM env variables.  Maybe I need to fully
+    # Embrase overlays...and have a seperate one and example one?
+
+vars:
+- name: CI_COMMIT_SHORT_SHA
+  objref:
+    kind: ConfigMap
+    name: environment-variables
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.CI_COMMIT_SHORT_SHA
+
+# See https://mbuffa.github.io/tips/20210720-kustomize-environment-variables/ for exampel of
+#. Using environment variables
+configMapGenerator:
+- name: environment-variables
+  envs: [environment-properties.env]
+  behavior: create

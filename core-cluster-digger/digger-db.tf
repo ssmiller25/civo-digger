@@ -10,7 +10,7 @@ data "civo_size" "small" {
   }
 }
 
-data "civo_database_version" "mysql" {
+data "civo_database_version" "db" {
   filter {
     key    = "engine"
     values = ["postgresql"]
@@ -25,9 +25,11 @@ resource "civo_database" "digger-database" {
   name    = "digger-db"
   size    = element(data.civo_size.small.sizes, 0).name
   nodes   = 1
-  engine  = element(data.civo_database_version.mysql.versions, 0).engine
-  version = element(data.civo_database_version.mysql.versions, 0).version
+  engine  = element(data.civo_database_version.db.versions, 0).engine
+  version = element(data.civo_database_version.db.versions, 0).version
 }
+
+
 
 resource "null_resource" "install_digger" {
     provisioner "local-exec" {
