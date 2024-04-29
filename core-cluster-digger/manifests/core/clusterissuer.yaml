@@ -4,7 +4,6 @@ metadata:
   name: letsencrypt-prod
 spec:
   acme:
-    email: ${EMAILADDR}
     preferredChain: ""
     privateKeySecretRef:
       name: prod-letsencrypt-key
@@ -13,4 +12,4 @@ spec:
     - selector: {}
       http01:
         ingress:
-          ingressClassName: nginx
+          ingressClassName: traefik

@@ -1,0 +1,10 @@
+# Example application of kustomize core yamls, in directory above.
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../core
+
+patches:
+- path: clusterissuer.yaml
