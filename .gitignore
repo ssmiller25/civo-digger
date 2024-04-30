@@ -38,3 +38,6 @@ override.tf.json
 terraform.rc
 
 # End of https://www.toptal.com/developers/gitignore/api/terraform
+
+# Temp auth between civo and kubernetes terraform providers
+civo.kubeconfig 
