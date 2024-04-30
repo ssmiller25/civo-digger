@@ -54,6 +54,8 @@ _screenshot of successful cluster deploy_
 
 ## Deploy Digger in Terraform!
 
+Kustomization Overlay discussion.  Also mention of leveration yaml/kustomize so it could be leverage by a CD solution (Flux/Argo/etc)
+
 _Check on cert manager_
 _ingress.tf Work, which will include setup of cert-mnaager_
 
