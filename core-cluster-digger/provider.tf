@@ -13,3 +13,7 @@ terraform {
 provider "civo" {
   region = "LON1"
 }
+
+provider "kubernetes" {
+  
+}
