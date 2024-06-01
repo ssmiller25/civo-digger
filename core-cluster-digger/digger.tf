@@ -1,6 +1,10 @@
 
-resource "helm_release" "nginx_ingress" {
-  name       = "digger-backend"
+data "civo_kubernetes_cluster" "core-cluster" {
+  name = "core-digger"
+}
+
+resource "helm_release" "digger-backend" {
+  name = "digger-backend"
 
   repository = "https://diggerhq.github.io/helm-charts/"
   chart      = "digger-backend"
@@ -14,73 +18,63 @@ resource "helm_release" "nginx_ingress" {
   }
 
   set {
-    name = "digger.service.type"
+    name  = "digger.service.type"
     value = "ClusterIP"
   }
 
   set {
-    name = "digger.ingress.enabled"
+    name  = "digger.ingress.enabled"
     value = "true"
   }
 
   set {
-    name = "digger.annotations"
+    name  = "digger.annotations"
     value = "kubernetes.io/ingress.class: traefik"
   }
 
   set {
-    name = "digger.ingress.host"
+    name  = "digger.ingress.host"
     value = "digger.${data.civo_kubernetes_cluster.core-cluster.dns_entry}"
   }
 
   set {
-    name = "digger.secret.BEARER_AUTH_TOKEN"
-    value = #TODO: Random string
+    name  = "digger.secret.BEARER_AUTH_TOKEN"
+    value = random_string.bearer_auth_token.result
   }
 
   set {
-    name = "digger.secret.HTTP_BASIC_AUTH
+    name  = "digger.secret.HTTP_BASIC_AUTH"
     value = "1"
   }
 
   set {
-    name = "digger.secret.HTTP_BASIC_AUTH_USERNAME
+    name  = "digger.secret.HTTP_BASIC_AUTH_USERNAME"
     value = "diggercivo"
   }
 
 
   set {
-    name = "digger.secret.HTTP_BASIC_AUTH_PW
-    value = #TODO: Another random string
+    name  = "digger.secret.HTTP_BASIC_AUTH_PW"
+    value = random_string.http_basic_auth_pw.result
   }
 
   set {
-    name = "digger.postgres.host"
+    name  = "digger.postgres.host"
     value = civo_database.digger-database.dns_endpoint
   }
 
   set {
-    name = "digger.postgres.database"
-    value = "diggerdb"
+    name  = "digger.postgres.database"
+    value = "digger-db"
   }
 
   set {
-    name = "digger.postgres.username"
+    name  = "digger.postgres.user"
     value = civo_database.digger-database.username
   }
 
   set {
-    name = "digger.postgres.password"
+    name  = "digger.secret.postgresPassword"
     value = civo_database.digger-database.password
   }
-
-  # GITHUB_ORG: GITHUBORG
-  #HOSTNAME: digger.${CLUSTERDNS}
-  #BEARER_AUTH_TOKEN: ${RANDOM_AUTH_TOKEN}
-  #DATABASE_URL: ${DBURL}
-  # Example: DATABASE_URL: "postgres://postgres:root@postgres:5432/postgres?sslmode: disable"
-  #HTTP_BASIC_AUTH: 1
-  #HTTP_BASIC_AUTH_USERNAME: diggercivo
-  #HTTP_BASIC_AUTH_PASSWORD: ${HTTP_BASIC_AUTH_PW}
-  #ALLOW_DIRTY: false # set to true if the database has already a schema configured
 }
