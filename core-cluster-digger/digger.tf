@@ -65,7 +65,8 @@ resource "helm_release" "digger-backend" {
 
   set {
     name  = "digger.postgres.database"
-    value = "digger-db"
+    # Hack to add sslmode to initial DB connection
+    value = "postgres?sslmode=require"
   }
 
   set {
