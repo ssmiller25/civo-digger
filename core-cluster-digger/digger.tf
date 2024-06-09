@@ -37,6 +37,17 @@ resource "helm_release" "digger-backend" {
     value = "digger.${data.civo_kubernetes_cluster.core-cluster.dns_entry}"
   }
 
+  # Using internal DB - waiting ofr updates to allow Civo DB to be used in future
+  set {
+    name = "postgres.enabled"
+    value = "true"
+  }
+
+  set {
+    name = "postgres.secret.password"
+    value = random_string.postgres_password.result
+  }
+
   set {
     name  = "digger.secret.BEARER_AUTH_TOKEN"
     value = random_string.bearer_auth_token.result
@@ -58,23 +69,4 @@ resource "helm_release" "digger-backend" {
     value = random_string.http_basic_auth_pw.result
   }
 
-  set {
-    name  = "digger.postgres.host"
-    value = civo_database.digger-database.dns_endpoint
-  }
-
-  set {
-    name  = "digger.postgres.database"
-    value = "digger-db"
-  }
-
-  set {
-    name  = "digger.postgres.user"
-    value = civo_database.digger-database.username
-  }
-
-  set {
-    name  = "digger.secret.postgresPassword"
-    value = civo_database.digger-database.password
-  }
 }

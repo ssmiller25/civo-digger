@@ -8,3 +8,8 @@ resource "random_string" "http_basic_auth_pw" {
   length  = 16
   special = true
 }
+
+resource "random_string" "postgres_password" {
+  length  = 16
+  special = true
+}
