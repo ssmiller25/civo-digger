@@ -12,6 +12,19 @@ data "civo_size" "xsmall" {
   }
 }
 
+data "civo_size" "small" {
+  filter {
+    key    = "type"
+    values = ["kubernetes"]
+  }
+
+    filter {
+        key = "name"
+        values = ["g4s.kube.small"]
+        match_by = "re"
+    }
+}
+
 # Create a firewall
 resource "civo_firewall" "core-firewall" {
   name                 = "core"
@@ -45,8 +58,7 @@ resource "civo_kubernetes_cluster" "core-cluster" {
   firewall_id  = civo_firewall.core-firewall.id
   applications = "cert-manager"
   pools {
-    label      = "front-end" // Optional
-    size       = element(data.civo_size.xsmall.sizes, 0).name
+    size       = element(data.civo_size.small.sizes, 0).name
     node_count = 3
   }
 }
