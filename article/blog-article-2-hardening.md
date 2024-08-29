@@ -1,14 +1,14 @@
 # Hardening our Infrastructure as Code Pipeline with Digger
 
-In [Part 1](blog-article-1-infra-bootstrap.md) of our blog series, we setup a simple Digger pipeline to perform infrastructure as code (IaC) deployments all withing a Github pipeline.  But what if we wanted to expand such a deployment for a larger installation, or want it hardened for production deployments.  We will look at deploying the [Orchestrator Backend](https://docs.digger.dev/readme/howitworks)
+In [Part 1](blog-article-1-infra-bootstrap.md) of our blog series, we setup a simple Digger pipeline to perform infrastructure as code (IaC) deployments all withing a GitHub pipeline.  But what if we wanted to expand such a deployment for a larger installation, or want it hardened for production deployments.  We will look at deploying the [Orchestrator Backend](https://docs.digger.dev/readme/howitworks)
 
 ## The Orchestrator Backend
 
-The Orchestrator Backend is a service that triggers Pipeline Runs.  Most CI pipeline runs are usually triggered by events within the source code management system - code commits, pull requests, and other internal activity.  Most CI systems also provide a way for CI activities to be triggered externally.  And that is what the Digger Orchestrator uses to help build a configuration that will work more efficently with multiple users and larger enviornments.
+The Orchestrator Backend is a service that triggers Pipeline Runs.  Most CI pipeline runs are usually triggered by events within the source code management system - code commits, pull requests, and other internal activity.  Most CI systems also provide a way for CI activities to be triggered externally.  And that is what the Digger Orchestrator uses to help build a configuration that will work more efficiently with multiple users and larger environments.
 
 - Quicker response to PR comments and faster status check updates
-- Paralellzation where appropriate  
-- Appropriate queing with multiple PRs
+- Parallelization where appropriate  
+- Appropriate queuing with multiple PRs
 - PR Level locks
 
 
@@ -71,9 +71,9 @@ digger:
     httpBasicAuthPassword: REPLACEPASSWORD76341
     bearerAuthToken: "22321cdede" # You should generate with something like openssl rand -base64 32
     hostname: https://0123456abcd-fefe-1010101.k8s.civo.com #Replace with cluster DNS A record, from above, with https:// protocol ahead of it.
-    githubOrg: "myorg" #replace with your Github organization
-    # Replace below, AFTER github setup process
-	# githubAppID: ""
+    githubOrg: "myorg" #replace with your GitHub organization
+    # Replace below, AFTER GitHub setup process
+	  # githubAppID: ""
     # githubAppClientID: ""
     # githubAppClientSecret: ""
     # githubAppKeyFile: #base64 encoded file
@@ -107,17 +107,17 @@ kubectl edit ingress -n digger
 
 Go to https://CIVO_CLUSTER_URL/ and log in using the basic auth username and password above
 
-Next, go to https://CIVO_CLUSTER_URL/github/setup to start the github app set.
+Next, go to https://CIVO_CLUSTER_URL/github/setup to start the GitHub app set.
 
 You will see a screen similar to below.  Review all the information, then click Setup.
  
 ![Initial Setup](images2/digger-github-setup.png)
 
-Github will prompt for authentication information.  Then confirm the creation of a new github app
+GitHub will prompt for authentication information.  Then confirm the creation of a new GitHub app
 
-![First github screen for auth](images2/digger-github-setup-2nd-screen.png)
+![First GitHub screen for auth](images2/digger-github-setup-2nd-screen.png)
 
-You will return back to the Digger github configuration screen.
+You will return back to the Digger GitHub configuration screen.
 
 ![Digger back at config screen](images2/digger-github-setup-3rd-screen.png)
 
@@ -133,10 +133,10 @@ helm upgrade digger digger/digger-backend --namespace digger -f values.yaml
 kubectl edit ingress -n digger
 ```
 
-After applying the helm configuration, click the link provided on the github setup screen - should be something like `https://github.com/apps/digger-app-111111111/installations/new`, only the `1s` replaced with random numbers assigned by Github.  This will complete the configuration!
+After applying the helm configuration, click the link provided on the GitHub setup screen - should be something like `https://github.com/apps/digger-app-111111111/installations/new`, only the `1s` replaced with random numbers assigned by GitHub.  This will complete the configuration!
 
 
-![Github App Configuration](images2/digger-github-setup-4th-screen.png)
+![GitHub App Configuration](images2/digger-github-setup-4th-screen.png)
 
 ## Configuring Digger
 
