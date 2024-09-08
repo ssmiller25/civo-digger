@@ -1,17 +1,3 @@
-# Update: 20240128
-# Query xsmall instance size
-data "civo_size" "xsmall" {
-  filter {
-    key    = "type"
-    values = ["kubernetes"]
-  }
-
-  sort {
-    key       = "ram"
-    direction = "asc"
-  }
-}
-
 data "civo_size" "small" {
   filter {
     key    = "type"
