@@ -1,17 +1,3 @@
-# Update: 20240128
-# Query xsmall instance size
-data "civo_size" "xsmall" {
-  filter {
-    key    = "type"
-    values = ["kubernetes"]
-  }
-
-  sort {
-    key       = "ram"
-    direction = "asc"
-  }
-}
-
 data "civo_size" "small" {
   filter {
     key    = "type"
@@ -56,7 +42,7 @@ resource "civo_firewall" "core-firewall" {
 resource "civo_kubernetes_cluster" "core-cluster" {
   name         = "core"
   firewall_id  = civo_firewall.core-firewall.id
-  applications = "cert-manager"
+  applications = "cert-manager,traefik2-nodeport"
   pools {
     size       = element(data.civo_size.small.sizes, 0).name
     node_count = 3
