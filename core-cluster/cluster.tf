@@ -42,7 +42,7 @@ resource "civo_firewall" "core-firewall" {
 resource "civo_kubernetes_cluster" "core-cluster" {
   name         = "core"
   firewall_id  = civo_firewall.core-firewall.id
-  applications = "cert-manager"
+  applications = "cert-manager,traefik2-nodeport"
   pools {
     size       = element(data.civo_size.small.sizes, 0).name
     node_count = 3
